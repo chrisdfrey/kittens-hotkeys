@@ -6,18 +6,18 @@
 // @author       chrisdfrey
 // @match        https://bloodrizer.ru/games/kittens/
 // @grant        none
-// @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // ==/UserScript==
 
-const desiredCycle = 5;
-
+// avoids fetching these things every time when needed; set in onLoad
 let shatter;
 let lev;
 
 function doShatter(amt) {
     shatter.controller.doShatterAmt(shatter.model,amt);
 }
+
+const desiredCycle = 5; // cycle to stay on when shattering
 
 function shatterAndTrade() {
     while (game.calendar.cycleYear != 0) {
@@ -30,7 +30,7 @@ function shatterAndTrade() {
     }
 
     const maxHeat = game.getEffect("heatMax");
-    while(game.time.heat <= (maxHeat-250)) {
+    while (game.time.heat <= (maxHeat-250)) {
         for (let i=0; i<10; i++) {
             doShatter(5);
             game.religion.praise();
@@ -65,7 +65,7 @@ function onLoad() {
         }
     }, 1000 );
 
-    console.log('Kittens Hotkeys loaded');
+    console.log("Kittens Hotkeys loaded");
 }
 
 waitForKeyElements('#game[style=""]', onLoad, bWaitOnce=true);
