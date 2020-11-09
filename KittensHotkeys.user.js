@@ -3,9 +3,11 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
-// @author       chrisdfrey
+// @author       You
 // @match        https://bloodrizer.ru/games/kittens/
 // @grant        none
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+// @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // ==/UserScript==
 
 const desiredCycle = 5;
@@ -42,9 +44,7 @@ function shatterAndTrade() {
     }
 }
 
-(function() {
-    'use strict';
-
+function onLoad() {
     document.onkeyup = function(e) {
         if (e.key === 'q') {
             game.village.huntAll();
@@ -56,15 +56,16 @@ function shatterAndTrade() {
         }
     }
 
-    setTimeout(() => {
-        shatter = game.timeTab.cfPanel.children[0].children[0];
-        lev = game.diplomacy.get("leviathans");
+    shatter = game.timeTab.cfPanel.children[0].children[0];
+    lev = game.diplomacy.get("leviathans");
 
-        setInterval(() => {
-            if ((game.time.heat === 0) && (game.calendar.day >= 0)) {
-                shatterAndTrade();
-            }
-        }, 1000 );
-    }, 10000);
+    setInterval(() => {
+        if ((game.time.heat === 0) && (game.calendar.day >= 0)) {
+            shatterAndTrade();
+        }
+    }, 1000 );
 
-})();
+    console.log('Kittens Hotkeys loaded');
+}
+
+waitForKeyElements('#game[style=""]', onLoad, bWaitOnce=true);
