@@ -2,8 +2,8 @@
 // @name         Kittens Hotkeys
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
-// @author       You
+// @description  Automate tasks in Kittens Game
+// @author       chrisdfrey
 // @match        https://bloodrizer.ru/games/kittens/
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
